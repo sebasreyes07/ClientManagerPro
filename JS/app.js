@@ -1,0 +1,188 @@
+// =========================================
+// CLIENTMANAGER PRO - UNIFIED JS
+// =========================================
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. ROUTER & NAVIGATION
+    const navLinks = document.querySelectorAll('.nav-spa');
+    const pantallas = document.querySelectorAll('.pantalla-spa');
+    const appShell = document.getElementById('app-shell');
+    const pantallaLogin = document.getElementById('pantalla-login');
+    const tituloSeccion = document.getElementById('titulo-seccion');
+
+    function navigateTo(pantallaId) {
+        // Hide all screens
+        pantallas.forEach(p => p.classList.remove('activa'));
+        
+        // Show target screen
+        const target = document.getElementById(pantallaId);
+        if(target) {
+            target.classList.add('activa');
+        }
+
+        // Update nav active states
+        navLinks.forEach(link => {
+            link.classList.remove('activo');
+            if (link.getAttribute('data-target') === pantallaId) {
+                link.classList.add('activo');
+                // Update title based on nav text
+                if (tituloSeccion) {
+                    tituloSeccion.textContent = link.textContent.trim();
+                }
+            }
+        });
+
+        // Cierra el menu movil si esta abierto
+        const barraLateral = document.getElementById('barra-lateral');
+        const overlayMenu = document.getElementById('overlay-menu');
+        if(barraLateral) barraLateral.classList.remove('abierta');
+        if(overlayMenu) overlayMenu.classList.remove('activo');
+        
+        // Cerrar menu usuario si estuviera abierto
+        const menuUsuario = document.getElementById('menu-usuario');
+        if(menuUsuario) menuUsuario.style.display = 'none';
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+            if(targetId) navigateTo(targetId);
+        });
+    });
+
+    // 2. LOGIN SIMULADO
+    const formLogin = document.getElementById('form-login');
+    if (formLogin) {
+        formLogin.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const usuarioInput = document.getElementById('input-usuario').value;
+            const passwordInput = document.getElementById('input-password').value;
+            
+            if (usuarioInput === 'usuario' && passwordInput === '12345678') {
+                pantallaLogin.classList.remove('activa');
+                appShell.style.display = 'block';
+                navigateTo('pantalla-dashboard');
+            } else {
+                alert('Credenciales incorrectas. Usuario o contraseña inválidos.');
+            }
+        });
+    }
+
+    // 3. MENU DE USUARIO & LOGOUT
+    const btnPerfil = document.querySelector('.btn-perfil');
+    const avatarUsuario = document.querySelector('.avatar-usuario');
+    const menuUsuario = document.getElementById('menu-usuario'); // Si existe
+    const linkLogout = document.getElementById('link-logout');
+
+    if (btnPerfil || avatarUsuario) {
+        const trigger = btnPerfil || avatarUsuario;
+        trigger.addEventListener('click', () => {
+            // Un simple confirm para logout si no hay menu dropdown implementado
+            if(confirm("¿Deseas cerrar sesión?")) {
+                appShell.style.display = 'none';
+                pantallaLogin.classList.add('activa');
+            }
+        });
+    }
+
+    if (linkLogout) {
+        linkLogout.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm("¿Seguro que deseas salir?")) {
+                appShell.style.display = 'none';
+                pantallaLogin.classList.add('activa');
+            }
+        });
+    }
+
+    // 4. MENU MOVIL (RESPONSIVE)
+    const btnMenuMovil = document.getElementById('btn-menu-movil');
+    const barraLateral = document.getElementById('barra-lateral');
+    const overlayMenu = document.getElementById('overlay-menu');
+
+    if (btnMenuMovil && barraLateral && overlayMenu) {
+        btnMenuMovil.addEventListener('click', () => {
+            barraLateral.classList.add('abierta');
+            overlayMenu.classList.add('activo');
+        });
+
+        overlayMenu.addEventListener('click', () => {
+            barraLateral.classList.remove('abierta');
+            overlayMenu.classList.remove('activo');
+        });
+    }
+
+    // 5. MODALS Y LOGICA ESPECIFICA (Clientes, Polizas, Recordatorios)
+    // Buscador General (Filtro simulado)
+    const inputBuscar = document.querySelector('.campo-busqueda input');
+    if(inputBuscar) {
+        inputBuscar.addEventListener('keyup', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filas = document.querySelectorAll('.fila-cliente, .policy-card, .reminder');
+            filas.forEach(fila => {
+                const text = fila.textContent.toLowerCase();
+                fila.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    }
+
+    // Notificaciones: Seleccion de canales
+    const tarjetasCanal = document.querySelectorAll('.tarjeta-canal');
+    tarjetasCanal.forEach(tarjeta => {
+        tarjeta.addEventListener('click', () => {
+            tarjeta.classList.toggle('activo');
+            const toggle = tarjeta.querySelector('.toggle-switch');
+            if(toggle) toggle.checked = !toggle.checked;
+        });
+    });
+
+    // Pestañas (Notificaciones / Reportes)
+    const tabsCategorias = document.querySelectorAll('.tab-categoria');
+    tabsCategorias.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabsCategorias.forEach(t => t.classList.remove('activo'));
+            tab.classList.add('activo');
+        });
+    });
+
+    // 6. Lógica del Modal Editar Cliente
+    const modalEditar = document.getElementById('modal-editar-cliente');
+    const btnCerrarEditar = document.getElementById('btn-cerrar-editar');
+    const btnCancelarEditar = document.getElementById('btn-cancelar-editar');
+    const formEditar = document.getElementById('form-editar-cliente');
+
+    if(modalEditar) {
+        document.querySelectorAll('.btn-editar-cliente').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Extract data from attributes
+                const nombre = btn.getAttribute('data-cliente');
+                const correo = btn.getAttribute('data-correo');
+                const seguro = btn.getAttribute('data-seguro');
+
+                // Fill form
+                document.getElementById('edit-nombre').value = nombre || '';
+                document.getElementById('edit-correo').value = correo || '';
+                document.getElementById('edit-seguro').value = seguro || '';
+
+                // Show modal
+                modalEditar.style.display = 'flex';
+            });
+        });
+
+        const closeModal = () => { modalEditar.style.display = 'none'; };
+        
+        if (btnCerrarEditar) btnCerrarEditar.addEventListener('click', closeModal);
+        if (btnCancelarEditar) btnCancelarEditar.addEventListener('click', closeModal);
+        
+        if (formEditar) {
+            formEditar.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Cliente actualizado con éxito (Simulado)');
+                closeModal();
+            });
+        }
+    }
+
+});

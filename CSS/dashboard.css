@@ -1,0 +1,552 @@
+/* DASHBOARD - ClientManager Pro Usa las variables de color definidas en estilos.css
+  (--azul-marino, --verde-teal, etc.), aquí no se repiten. */
+
+body {
+  background-color: #eef2f6;
+}
+
+.fondo-decorativo-dashboard {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fondo-decorativo-dashboard span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.forma-dash-1 {
+  width: 420px;
+  height: 420px;
+  background-color: var(--verde-teal);
+  opacity: 0.12;
+  top: -120px;
+  right: -80px;
+}
+
+.forma-dash-2 {
+  width: 380px;
+  height: 380px;
+  background-color: var(--azul-marino);
+  opacity: 0.1;
+  bottom: -140px;
+  left: 10%;
+}
+
+.layout-dashboard {
+  display: flex;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* ===== BARRA LATERAL ===== */
+.barra-lateral {
+  width: 220px;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(22, 50, 79, 0.08);
+  padding-top: 20px;
+}
+
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  color: var(--gris-texto);
+  text-decoration: none;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease;
+}
+
+.item-menu:hover {
+  background-color: rgba(33, 161, 145, 0.08);
+}
+
+.item-menu.activo {
+  color: var(--verde-teal);
+  font-weight: 600;
+  border-left-color: var(--verde-teal);
+  background-color: rgba(33, 161, 145, 0.1);
+}
+
+.icono-menu {
+  font-size: 15px;
+  width: 18px;
+  text-align: center;
+}
+
+/*  ZONA DERECHA (barra superior + contenido) */
+.contenido-principal {
+  flex: 1;
+  min-width: 0; /* evita que las tablas empujen el layout */
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(22, 50, 79, 0.08);
+  overflow: hidden; /* para que el header respete las esquinas redondeadas */
+}
+
+.barra-superior {
+  height: 64px;
+  background: linear-gradient(120deg, var(--azul-oscuro), var(--azul-marino));
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+
+.boton-menu-movil {
+  display: none; /* solo aparece en celular, ver media query abajo */
+  background: none;
+  border: none;
+  color: var(--blanco);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.marca-superior {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-circulo-chico {
+  width: 30px;
+  height: 30px;
+  background-color: var(--blanco);
+  color: var(--azul-marino);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.nombre-app-superior {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.acciones-superiores {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.boton-icono {
+  background: none;
+  border: none;
+  color: var(--blanco);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.avatar-usuario {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--verde-teal);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid #ffffff55;
+}
+
+/* ===== CONTENIDO DEL PANEL ===== */
+.panel-contenido {
+  padding: 32px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.panel-contenido h1 {
+  color: var(--azul-marino);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.panel-contenido h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background-color: var(--verde-teal);
+}
+
+/*  TARJETAS WIDGET (estilo "panel de control", vidrio esmerilado) */
+.tarjeta-widget {
+  position: relative;
+  overflow: hidden; /* recorta la forma decorativa de la esquina */
+  background-color: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 16px rgba(22, 50, 79, 0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Circulito de color muy sutil en la esquina, solo decorativo */
+.tarjeta-widget::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: var(--verde-teal);
+  opacity: 0.08;
+}
+
+.tarjeta-widget:hover {
+  box-shadow: 0 12px 28px rgba(22, 50, 79, 0.14);
+  transform: translateY(-3px);
+}
+
+/*  TARJETAS KPI */
+.grid-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.etiqueta-kpi {
+  position: relative;
+  color: var(--gris-texto);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.numero-kpi {
+  position: relative;
+  font-size: 36px;
+  font-weight: 700;
+  /* Número con degradado navy -> teal, el toque "elaborado" */
+  background: linear-gradient(90deg, var(--azul-marino), var(--verde-teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tendencia-kpi {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.grafico-mini {
+  width: 100px;
+  height: 32px;
+}
+
+.grafico-mini polyline {
+  fill: none;
+  stroke: var(--verde-teal);
+  stroke-width: 2;
+}
+
+.texto-tendencia {
+  font-size: 12px;
+  color: var(--verde-teal);
+  font-weight: 600;
+}
+
+/* FILA INFERIOR: vencimientos + cumpleaños  */
+.grid-inferior {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.tarjeta-vencimientos h2,
+.tarjeta-cumpleanos h2 {
+  color: var(--azul-marino);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Tabla (pantallas grandes) */
+.tabla-vencimientos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-vencimientos th {
+  text-align: left;
+  font-size: 12px;
+  color: var(--gris-texto);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.tabla-vencimientos td {
+  padding: 12px 0;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Chips de estado */
+.chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chip-proximo {
+  background-color: #fff4e0;
+  color: #b8860b;
+}
+
+.chip-vigor {
+  background-color: #e3f8f1;
+  color: var(--verde-teal-hover);
+}
+
+/* Lista de tarjetas (celular) - oculta en desktop */
+.lista-vencimientos-movil {
+  display: none;
+  list-style: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.enlace-ver-todo {
+  display: none;
+  text-align: center;
+  color: var(--verde-teal);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* Cumpleaños  */
+.lista-cumpleanos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lista-cumpleanos li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-cumpleanos {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 2px solid var(--verde-teal);
+}
+
+.nombre-cumpleanos {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fecha-cumpleanos {
+  font-size: 12px;
+  color: var(--gris-texto);
+}
+
+/* ===== Fondo oscuro detrás del menú móvil ===== */
+.overlay-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 15;
+}
+
+.overlay-menu.visible {
+  display: block;
+}
+
+/* RESPONSIVE: pantallas de tablet y celular (menos de 900px)*/
+@media (max-width: 900px) {
+
+  .layout-dashboard {
+    padding: 0;
+    gap: 0;
+  }
+
+  .contenido-principal {
+    border-radius: 0;
+    border: none;
+  }
+
+  /* La barra lateral se convierte en un menú deslizante */
+  .barra-lateral {
+    position: fixed;
+    top: 0;
+    border-radius: 0 18px 18px 0;
+    left: -240px;
+    height: 100vh;
+    width: 220px;
+    z-index: 20;
+    transition: left 0.25s ease;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .barra-lateral.abierta {
+    left: 0;
+  }
+
+  .boton-menu-movil {
+    display: block;
+  }
+
+  .panel-contenido {
+    padding: 20px;
+  }
+
+  /* La tarjeta de "Clientes activos" ocupa todo el ancho, las otras dos quedan una junto a la otra */
+  .grid-kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tarjeta-kpi-principal {
+    grid-column: 1 / -1;
+  }
+
+  /* Vencimientos y cumpleaños se apilan en una sola columna */
+  .grid-inferior {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cambiamos la tabla por la lista de tarjetas */
+  .tabla-vencimientos {
+    display: none;
+  }
+
+  .lista-vencimientos-movil {
+    display: flex;
+  }
+
+  .lista-vencimientos-movil li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .fecha-movil {
+    background-color: var(--azul-marino);
+    color: var(--blanco);
+    border-radius: 8px;
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+
+  .fecha-movil span {
+    display: block;
+    font-size: 16px;
+  }
+
+  .info-vencimiento-movil {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nombre-cliente-movil {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .poliza-cliente-movil {
+    font-size: 11px;
+    color: var(--gris-texto);
+  }
+
+  .enlace-ver-todo {
+    display: block;
+  }
+
+  /* Los cumpleaños pasan a ser una fila horizontal con scroll */
+  .lista-cumpleanos {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 18px;
+    padding-bottom: 8px;
+  }
+
+  .lista-cumpleanos li {
+    flex-direction: column;
+    text-align: center;
+    min-width: 64px;
+  }
+
+  .avatar-cumpleanos {
+    width: 48px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .nombre-cumpleanos {
+    font-size: 11px;
+  }
+
+  .fecha-cumpleanos {
+    font-size: 10px;
+  }
+}

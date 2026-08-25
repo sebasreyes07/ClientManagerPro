@@ -1,0 +1,281 @@
+/* ==========================================================
+   CLIENTES - ClientManager Pro
+   Reutiliza las variables de estilos.css y la estructura
+   de layout de dashboard.css (barra-lateral, tarjeta-widget, etc.)
+   ========================================================== */
+
+/*Encabezado: título + botón "Nuevo cliente"  */
+.encabezado-clientes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* El h1 "Clientes" reutiliza el estilo de .panel-contenido h1
+  definido en dashboard.css (título + rayita verde), así que
+   aquí solo quitamos el margen inferior que ya no hace falta. */
+.encabezado-clientes h1 {
+  margin-bottom: 0;
+}
+
+.boton-nuevo-cliente {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--verde-teal);
+  color: var(--blanco);
+  border: none;
+  border-radius: 999px; /* botón tipo "píldora" */
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(33, 161, 145, 0.3);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.boton-nuevo-cliente:hover {
+  background-color: var(--verde-teal-hover);
+}
+
+.boton-nuevo-cliente:active {
+  transform: scale(0.97);
+}
+
+.signo-mas {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ===== Barra de búsqueda + filtro ===== */
+.barra-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.campo-busqueda {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+}
+
+.campo-busqueda .icono-busqueda {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--gris-texto);
+}
+
+.campo-busqueda input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(22, 50, 79, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.campo-busqueda input:focus {
+  border-color: var(--verde-teal);
+}
+
+.chip-filtro {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--azul-marino);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.flecha-chip {
+  font-size: 10px;
+}
+
+/* ===== Tarjeta que envuelve la lista completa ===== */
+.tarjeta-lista-clientes {
+  padding: 8px 24px;
+}
+
+.lista-clientes {
+  list-style: none;
+}
+
+/* ===== Cada fila de cliente ===== */
+.fila-cliente {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 4px;
+  border-bottom: 1px solid rgba(22, 50, 79, 0.08);
+  transition: background-color 0.15s ease;
+}
+
+.fila-cliente:last-child {
+  border-bottom: none;
+}
+
+.fila-cliente:hover {
+  background-color: rgba(33, 161, 145, 0.05);
+}
+
+/* Avatar circular con iniciales. Los colores rotan entre
+   variaciones de nuestra propia paleta (nada de colores nuevos). */
+.avatar-cliente {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blanco);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.color-avatar-1 { background-color: var(--verde-teal); }
+.color-avatar-2 { background-color: var(--azul-marino); }
+.color-avatar-3 { background-color: var(--verde-teal-hover); }
+.color-avatar-4 { background-color: #4f7fa8; } /* variación clara del navy */
+.color-avatar-5 { background-color: #5cc4b3; } /* variación clara del teal */
+
+.info-cliente {
+  min-width: 0;
+  flex: 1 1 220px;
+}
+
+.nombre-cliente {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--azul-marino);
+  margin-bottom: 2px;
+}
+
+.detalle-cliente {
+  font-size: 13px;
+  color: var(--gris-texto);
+}
+
+.correo-cliente {
+  flex: 1 1 200px;
+  font-size: 14px;
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip-polizas {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.acciones-cliente {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.boton-accion {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: var(--gris-texto);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.boton-accion:hover {
+  background-color: rgba(33, 161, 145, 0.12);
+  color: var(--verde-teal-hover);
+}
+
+/* ===== Botón flotante (FAB) - solo aparece en celular ===== */
+.boton-flotante {
+  display: none; /* oculto en escritorio, ver media query */
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--verde-teal);
+  color: var(--blanco);
+  border: none;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(33, 161, 145, 0.4);
+  z-index: 25;
+  transition: transform 0.15s ease;
+}
+
+.boton-flotante:active {
+  transform: scale(0.94);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  /* En celular usamos el botón flotante en vez del botón de arriba */
+  .boton-nuevo-cliente {
+    display: none;
+  }
+
+  .boton-flotante {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* El filtro "Estado: Activos" no aparece en la versión móvil */
+  .chip-filtro {
+    display: none;
+  }
+
+  .campo-busqueda {
+    max-width: none;
+  }
+
+  /* La fila de cliente se simplifica: solo avatar + nombre/detalle + menú */
+  .correo-cliente,
+  .chip-polizas,
+  .fila-cliente .boton-accion:first-child {
+    display: none;
+  }
+
+  .fila-cliente {
+    padding: 14px 2px;
+  }
+
+  .tarjeta-lista-clientes {
+    padding: 4px 16px;
+  }
+}

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClientManager Pro</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo-cmp.png" type="image/png">
+    <!-- CSS Unificado -->
+    <link rel="stylesheet" href="css/app.css">
+    <!-- Iconos Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <!-- ==========================================
+         LOGIN (PANTALLA INICIAL)
+         ========================================== -->
+    <section id="pantalla-login" class="pantalla-spa activa">
+        <div class="contenedor-login">
+            <div class="panel-izquierdo">
+                <div class="circulos-decorativos"></div>
+                <div class="logo-y-texto">
+                    <!-- Logo real -->
+                    <img src="assets/logo-cmp.png" alt="ClientManager Pro" class="logo-circulo" style="background:transparent; object-fit:contain;">
+                </div>
+                <p class="tagline">Gestiona tus clientes</p>
+            </div>
+            <div class="panel-derecho">
+                <div class="caja-login">
+                    <h2>Bienvenido de nuevo</h2>
+                    <p>Ingresa tus credenciales para acceder</p>
+                    <form id="form-login">
+                        <div class="grupo-input">
+                            <label>Usuario</label>
+                            <div class="input-con-icono">
+                                <span class="bx bx-user"></span>
+                                <input type="text" id="input-usuario" placeholder="usuario" required>
+                            </div>
+                        </div>
+                        <div class="grupo-input">
+                            <label>Contraseña</label>
+                            <div class="input-con-icono">
+                                <span class="bx bx-lock-alt"></span>
+                                <input type="password" id="input-password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <div class="opciones-extra">
+                            <label class="recordarme">
+                                <input type="checkbox"> Recordarme
+                            </label>
+                            <button type="button" class="olvido-pass">¿Olvidaste tu contraseña?</button>
+                        </div>
+                        <button type="submit" class="boton-login">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================
+         APP SHELL (Contenedor Principal de la App)
+         ========================================== -->
+    <div id="app-shell" style="display:none;">
+        <div class="contenedor-dashboard">
+            
+            <!-- OVERLAY RESPONSIVE -->
+            <div class="overlay-menu" id="overlay-menu"></div>
+            
+            <!-- BARRA LATERAL (SIDEBAR) -->
+            <aside class="barra-lateral" id="barra-lateral">
+                <div class="cabecera-lateral">
+                    <img src="assets/logo-cmp.png" alt="ClientManager Pro" class="logo-icono" style="background:transparent; object-fit:contain;">
+                </div>
+                
+                <nav class="nav-lateral">
+                    <a href="#" class="link-nav nav-spa activo" data-target="pantalla-dashboard">
+                        <i class='bx bx-grid-alt'></i> Panel Principal
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-clientes">
+                        <i class='bx bx-user-pin'></i> Clientes
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-clientesNuevos">
+                        <i class='bx bx-user-plus'></i> Nuevo Cliente
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-polizas">
+                        <i class='bx bx-file'></i> Pólizas
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-recordatorios">
+                        <i class='bx bx-bell'></i> Recordatorios
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-notificaciones">
+                        <i class='bx bx-message-square-detail'></i> Canales
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-reportes">
+                        <i class='bx bx-pie-chart-alt-2'></i> Reportes
+                    </a>
+                    <a href="#" class="link-nav nav-spa" data-target="pantalla-configuracion">
+                        <i class='bx bx-cog'></i> Configuración
+                    </a>
+                </nav>
+                
+                <div class="pie-lateral">
+                    <a href="#" class="link-logout" id="link-logout">
+                        <i class='bx bx-log-out'></i> Cerrar Sesión
+                    </a>
+                </div>
+            </aside>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="contenido-principal">
+                <!-- BARRA SUPERIOR -->
+                <header class="barra-superior">
+                    <button class="boton-menu-movil" id="btn-menu-movil">
+                        <i class='bx bx-menu'></i>
+                    </button>
+                    <!-- Titulo dinamico opcional -->
+                    <h2 style="font-size: 18px; color: var(--azul-oscuro);" class="d-none" id="titulo-seccion">Panel Principal</h2>
+                    
+                    <div class="perfil-usuario" style="margin-left: auto;">
+                        <button class="btn-notificacion nav-spa" data-target="pantalla-recordatorios">
+                            <i class='bx bx-bell'></i>
+                            <span class="indicador-punto"></span>
+                        </button>
+                        <div class="info-usuario">
+                            <div class="avatar-usuario btn-perfil">JC</div>
+                            <div class="texto-usuario" style="display: flex; flex-direction: column;">
+                                <span class="nombre-usuario">Juan Carlos</span>
+                                <span class="rol-usuario">Asesor Senior</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- ÁREA DE TRABAJO DINÁMICA -->
+                <main class="area-trabajo">
+
+                    <!-- VISTA 1: DASHBOARD -->
+                    <section id="pantalla-dashboard" class="pantalla-spa activa">
+                        <div class="panel-contenido">
+                            <h1>Resumen Ejecutivo</h1>
+                            
+                            <!-- KPIs -->
+                            <div class="rejilla-kpis">
+                                <div class="tarjeta-widget">
+                                    <div class="tarjeta-kpi">
+                                        <div class="icono-kpi azul"><i class='bx bx-user'></i></div>
+                                        <div class="info-kpi"><h3>Total Clientes</h3><p>1,248</p></div>
+                                    </div>
+                                </div>
+                                <div class="tarjeta-widget">
+                                    <div class="tarjeta-kpi">
+                                        <div class="icono-kpi verde"><i class='bx bx-file'></i></div>
+                                        <div class="info-kpi"><h3>Pólizas Activas</h3><p>3,842</p></div>
+                                    </div>
+                                </div>
+                                <div class="tarjeta-widget">
+                                    <div class="tarjeta-kpi">
+                                        <div class="icono-kpi naranja"><i class='bx bx-time'></i></div>
+                                        <div class="info-kpi"><h3>Renovaciones Próximas</h3><p>42</p></div>
+                                    </div>
+                                </div>
+                                <div class="tarjeta-widget">
+                                    <div class="tarjeta-kpi">
+                                        <div class="icono-kpi rojo"><i class='bx bx-x-circle'></i></div>
+                                        <div class="info-kpi"><h3>Pólizas Vencidas</h3><p>12</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Widgets de Listas -->
+                            <div class="dos-columnas">
+                                <!-- Últimos Clientes Agregados -->
+                                <div class="tarjeta-widget">
+                                    <h2>Últimos Clientes Registrados</h2>
+                                    <div style="overflow-x: auto;">
+                                        <table class="tabla-recientes">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Ramo Principal</th>
+                                                    <th>Estado</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Empresa Transportes S.A.</td>
+                                                    <td>Flotillas</td>
+                                                    <td><span class="chip-vigor activo">Vigente</span></td>
+                                                    <td><button class="boton-accion"><i class='bx bx-dots-vertical-rounded'></i></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>María Fernanda Gómez</td>
+                                                    <td>Gastos Médicos</td>
+                                                    <td><span class="chip-vigor activo">Vigente</span></td>
+                                                    <td><button class="boton-accion"><i class='bx bx-dots-vertical-rounded'></i></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Construcciones Ruiz</td>
+                                                    <td>Responsabilidad Civil</td>
+                                                    <td><span class="chip-vigor vence-pronto">Vence en 30d</span></td>
+                                                    <td><button class="boton-accion"><i class='bx bx-dots-vertical-rounded'></i></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a href="#" class="link-ver-todo nav-spa" data-target="pantalla-clientes">Ver todos los clientes</a>
+                                </div>
+                                
+                                <!-- Vencimientos Próximos (Timeline corto) -->
+                                <div class="tarjeta-widget">
+                                    <h2>Próximos Vencimientos</h2>
+                                    <ul class="lista-vencimientos">
+                                        <li class="item-vencimiento">
+                                            <div class="fecha-box">
+                                                <span class="dia">15</span>
+                                                <span class="mes">Nov</span>
+                                            </div>
+                                            <div class="detalle-vencimiento">
+                                                <h4>Autos - Seguros Atlas</h4>
+                                                <p>Juan Pérez</p>
+                                            </div>
+                                        </li>
+                                        <li class="item-vencimiento">
+                                            <div class="fecha-box">
+                                                <span class="dia">18</span>
+                                                <span class="mes">Nov</span>
+                                            </div>
+                                            <div class="detalle-vencimiento">
+                                                <h4>GMM - GNP</h4>
+                                                <p>Familia Rodríguez</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <a href="#" class="link-ver-todo nav-spa" data-target="pantalla-polizas">Ver calendario completo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 2: LISTA DE CLIENTES -->
+                    <section id="pantalla-clientes" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <div class="encabezado-clientes">
+                                <h1>Directorio de Clientes</h1>
+                                <button class="boton-nuevo-cliente nav-spa" data-target="pantalla-clientesNuevos">
+                                    <i class='bx bx-plus'></i> Agregar Cliente
+                                </button>
+                            </div>
+                            
+                            <div class="tarjeta-widget">
+                                <div class="barra-filtros">
+                                    <div class="campo-busqueda">
+                                        <i class='bx bx-search icono-busqueda'></i>
+                                        <input type="text" placeholder="Buscar por nombre, empresa, email...">
+                                    </div>
+                                    <div class="filtros-chips" style="display:flex; gap: 8px;">
+                                        <button class="chip-filtro">Todos</button>
+                                        <button class="chip-filtro">Empresas</button>
+                                        <button class="chip-filtro">Individuales</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="lista-clientes">
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-1">JD</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Juan Diego Giraldo</div>
+                                            <div class="detalle-cliente">jd.giraldo@email.com | Póliza de Vida</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Juan Diego Giraldo" data-correo="jd.giraldo@email.com" data-seguro="Póliza de Vida"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-2">MF</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">María Fernanda Gómez</div>
+                                            <div class="detalle-cliente">maria.gomez@email.com | Gastos Médicos Mayores</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="María Fernanda Gómez" data-correo="maria.gomez@email.com" data-seguro="Gastos Médicos Mayores"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-3">CA</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Carlos Alberto Rojas</div>
+                                            <div class="detalle-cliente">crojas@empresa.com | Seguro de Auto</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Carlos Alberto Rojas" data-correo="crojas@empresa.com" data-seguro="Seguro de Auto"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-4">IY</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Inversiones y Proyectos S.A.S.</div>
+                                            <div class="detalle-cliente">contacto@inversionespro.com | Responsabilidad Civil</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Inversiones y Proyectos S.A.S." data-correo="contacto@inversionespro.com" data-seguro="Responsabilidad Civil"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-5">CH</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Constructora Horizonte</div>
+                                            <div class="detalle-cliente">gerencia@horizonte.com | Seguro Todo Riesgo Construcción</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Constructora Horizonte" data-correo="gerencia@horizonte.com" data-seguro="Seguro Todo Riesgo Construcción"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-1">LC</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Laura Camila Martínez</div>
+                                            <div class="detalle-cliente">lmartinez@email.com | Seguro de Hogar</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Laura Camila Martínez" data-correo="lmartinez@email.com" data-seguro="Seguro de Hogar"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-2">AF</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Andrés Felipe Quintero</div>
+                                            <div class="detalle-cliente">andres.quintero@email.com | SOAT y Auto</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Andrés Felipe Quintero" data-correo="andres.quintero@email.com" data-seguro="SOAT y Auto"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-3">DE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Distribuidora El Éxito</div>
+                                            <div class="detalle-cliente">ventas@elexito.com | Póliza Colectiva de Salud</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Distribuidora El Éxito" data-correo="ventas@elexito.com" data-seguro="Póliza Colectiva de Salud"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-4">CI</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Consultores Integrales Ltda.</div>
+                                            <div class="detalle-cliente">info@consultores.com | Responsabilidad Civil Profesional</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Consultores Integrales Ltda." data-correo="info@consultores.com" data-seguro="Responsabilidad Civil Profesional"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-5">DM</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Diana Marcela Vargas</div>
+                                            <div class="detalle-cliente">diana.vargas@email.com | Seguro de Accidentes Personales</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Diana Marcela Vargas" data-correo="diana.vargas@email.com" data-seguro="Seguro de Accidentes Personales"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-1">TR</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Transportes Rápidos de la Costa</div>
+                                            <div class="detalle-cliente">logistica@transportes.com | Póliza de Vida</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Transportes Rápidos de la Costa" data-correo="logistica@transportes.com" data-seguro="Póliza de Vida"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-2">JE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Jorge Enrique Peña</div>
+                                            <div class="detalle-cliente">jorge.pena@email.com | Gastos Médicos Mayores</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Jorge Enrique Peña" data-correo="jorge.pena@email.com" data-seguro="Gastos Médicos Mayores"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-3">CA</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Camila Andrea López</div>
+                                            <div class="detalle-cliente">camila.lopez@email.com | Seguro de Auto</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Camila Andrea López" data-correo="camila.lopez@email.com" data-seguro="Seguro de Auto"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-4">CS</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Clínica San José</div>
+                                            <div class="detalle-cliente">admin@clinicasanjose.com | Responsabilidad Civil</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Clínica San José" data-correo="admin@clinicasanjose.com" data-seguro="Responsabilidad Civil"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-5">AE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Agropecuaria El Valle S.A.</div>
+                                            <div class="detalle-cliente">contacto@agrovalle.com | Seguro Todo Riesgo Construcción</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Agropecuaria El Valle S.A." data-correo="contacto@agrovalle.com" data-seguro="Seguro Todo Riesgo Construcción"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-1">DE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Daniel Esteban Morales</div>
+                                            <div class="detalle-cliente">daniel.morales@email.com | Seguro de Hogar</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Daniel Esteban Morales" data-correo="daniel.morales@email.com" data-seguro="Seguro de Hogar"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-2">SA</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Sofía Alejandra Torres</div>
+                                            <div class="detalle-cliente">sofia.torres@email.com | SOAT y Auto</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Sofía Alejandra Torres" data-correo="sofia.torres@email.com" data-seguro="SOAT y Auto"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-3">RE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Restaurante El Sazón Colombiano</div>
+                                            <div class="detalle-cliente">admin@elsazon.com | Póliza Colectiva de Salud</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Restaurante El Sazón Colombiano" data-correo="admin@elsazon.com" data-seguro="Póliza Colectiva de Salud"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-4">GE</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Grupo Empresarial Andino</div>
+                                            <div class="detalle-cliente">gerencia@grupoandino.com | Responsabilidad Civil Profesional</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Grupo Empresarial Andino" data-correo="gerencia@grupoandino.com" data-seguro="Responsabilidad Civil Profesional"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="fila-cliente">
+                                        <div class="avatar-cliente color-avatar-5">VR</div>
+                                        <div class="info-cliente">
+                                            <div class="nombre-cliente">Valentina Ríos</div>
+                                            <div class="detalle-cliente">valentina.rios@email.com | Seguro de Accidentes Personales</div>
+                                        </div>
+                                        <div class="acciones-cliente">
+                                            <button class="boton-accion"><i class='bx bx-phone'></i></button>
+                                            <button class="boton-accion nav-spa" data-target="pantalla-polizas"><i class='bx bx-file'></i></button>
+                                            <button class="boton-accion btn-editar-cliente" data-cliente="Valentina Ríos" data-correo="valentina.rios@email.com" data-seguro="Seguro de Accidentes Personales"><i class='bx bx-edit'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 3: NUEVO CLIENTE (FORMULARIO) -->
+                    <section id="pantalla-clientesNuevos" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <div class="form-card">
+                                <div class="form-card-header">
+                                    <div>
+                                        <h1 style="margin-bottom: 4px; font-size: 24px; color: var(--azul-oscuro);">Registrar Nuevo Cliente</h1>
+                                        <p style="color: var(--gris-texto); font-size: 14px;">Ingresa los datos generales del asegurado</p>
+                                    </div>
+                                </div>
+                                <form onsubmit="event.preventDefault(); alert('Cliente registrado con éxito (Simulado)'); document.querySelector('a[data-target=\'pantalla-clientes\']').click();">
+                                    <div class="form-grid">
+                                        <div class="field">
+                                            <label>Tipo de Persona</label>
+                                            <div class="input-wrapper">
+                                                <select style="width:100%; height:50px; border:none; background:transparent; padding:0 16px;">
+                                                    <option>Natural</option>
+                                                    <option>Jurídica</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Nombre Completo / Razón Social</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" placeholder="Ej. Juan Pérez" required>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>NIT o CC</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" placeholder="ABCD123456789">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Correo Electrónico</label>
+                                            <div class="input-wrapper">
+                                                <input type="email" placeholder="correo@ejemplo.com">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Teléfono Celular</label>
+                                            <div class="input-wrapper">
+                                                <input type="tel" placeholder="55 1234 5678">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="button nav-spa" data-target="pantalla-clientes" style="background:transparent; border:1px solid var(--gris-borde);">Cancelar</button>
+                                        <button type="submit" class="button button-primary">Guardar Cliente</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 4: PÓLIZAS -->
+                    <section id="pantalla-polizas" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <div class="encabezado-clientes">
+                                <h1>Gestión de Pólizas</h1>
+                            </div>
+                            
+                            <div class="barra-filtros">
+                                <div class="campo-busqueda">
+                                    <i class='bx bx-search icono-busqueda'></i>
+                                    <input type="text" placeholder="Buscar asegurado, # póliza o aseguradora...">
+                                </div>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="chip-filtro">Vigentes</button>
+                                    <button class="chip-filtro">Próximas a vencer</button>
+                                </div>
+                            </div>
+                            
+                            <div class="lista-polizas">
+                                <div class="policy-card">
+                                    <div>
+                                        <div style="font-size:12px; font-weight:700; color:var(--verde-teal);">AUTOS</div>
+                                        <div style="font-weight:600; font-size:16px;">Juan Pérez</div>
+                                        <div style="font-size:13px; color:var(--gris-texto);">POL-192837465</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600; font-size:14px;">GNP Seguros</div>
+                                        <div style="font-size:13px; color:var(--gris-texto);">Vigencia: 01/Ene/2026 - 31/Dic/2026</div>
+                                    </div>
+                                    <div>
+                                        <span class="policy-status vigente">VIGENTE</span>
+                                    </div>
+                                </div>
+                                <div class="policy-card">
+                                    <div>
+                                        <div style="font-size:12px; font-weight:700; color:var(--azul-marino);">GASTOS MÉDICOS</div>
+                                        <div style="font-weight:600; font-size:16px;">Familia Rodríguez</div>
+                                        <div style="font-size:13px; color:var(--gris-texto);">POL-987654321</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600; font-size:14px;">AXA</div>
+                                        <div style="font-size:13px; color:var(--gris-texto);">Vigencia: 15/Nov/2025 - 15/Nov/2026</div>
+                                    </div>
+                                    <div>
+                                        <span class="policy-status por-vencer">POR VENCER</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 5: RECORDATORIOS -->
+                    <section id="pantalla-recordatorios" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <h1>Línea de Tiempo - Actividades</h1>
+                            
+                            <div class="timeline" style="margin-top: 30px;">
+                                <div class="reminder">
+                                    <div>
+                                        <h4 style="font-size:15px; color:var(--azul-oscuro); margin-bottom:4px;">Llamar a Juan Pérez (Renovación Auto)</h4>
+                                        <p style="font-size:13px; color:var(--gris-texto);">Póliza vence en 15 días. Ofrecer misma cobertura GNP.</p>
+                                    </div>
+                                    <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                                        <div>
+                                            <div style="font-weight:700; color:var(--verde-teal);">Hoy</div>
+                                            <div style="font-size:12px; color:var(--gris-texto);">10:00 AM</div>
+                                        </div>
+                                        <div>
+                                            <button class="boton-accion" style="color:#25D366; background:rgba(37,211,102,0.1);"><i class='bx bxl-whatsapp'></i></button>
+                                            <button class="boton-accion" style="color:var(--azul-oscuro); background:rgba(22,50,79,0.1);"><i class='bx bx-envelope'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reminder">
+                                    <div>
+                                        <h4 style="font-size:15px; color:var(--azul-oscuro); margin-bottom:4px;">Enviar cotización RC a Empresa Transportes S.A.</h4>
+                                        <p style="font-size:13px; color:var(--gris-texto);">Revisar condiciones especiales solicitadas.</p>
+                                    </div>
+                                    <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                                        <div>
+                                            <div style="font-weight:700; color:var(--azul-marino);">Mañana</div>
+                                            <div style="font-size:12px; color:var(--gris-texto);">Pendiente</div>
+                                        </div>
+                                        <div>
+                                            <button class="boton-accion" style="color:#25D366; background:rgba(37,211,102,0.1);"><i class='bx bxl-whatsapp'></i></button>
+                                            <button class="boton-accion" style="color:var(--azul-oscuro); background:rgba(22,50,79,0.1);"><i class='bx bx-envelope'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 6: NOTIFICACIONES (CANALES) -->
+                    <section id="pantalla-notificaciones" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <h1>Configuración de Canales de Alerta</h1>
+                            <p style="color: var(--gris-texto); margin-bottom: 24px;">Selecciona por qué medios deseas recibir alertas de renovaciones y cobros.</p>
+                            
+                            <div class="selector-canales">
+                                <div class="tarjeta-canal activo">
+                                    <h3 style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><i class='bx bx-envelope'></i> Correo Electrónico</h3>
+                                    <p style="font-size:13px; color:var(--gris-texto);">Recibe un resumen diario a las 8:00 AM.</p>
+                                </div>
+                                <div class="tarjeta-canal">
+                                    <h3 style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><i class='bx bxl-whatsapp'></i> WhatsApp</h3>
+                                    <p style="font-size:13px; color:var(--gris-texto);">Mensajes instantáneos 30 días antes del vencimiento.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 7: REPORTES -->
+                    <section id="pantalla-reportes" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <h1>Reportes y Estadísticas</h1>
+                            
+                            <div class="tabs-categoria">
+                                <div class="tab-categoria activo">Ventas Anuales</div>
+                                <div class="tab-categoria">Renovaciones</div>
+                                <div class="tab-categoria">Siniestralidad</div>
+                            </div>
+                            
+                            <div class="tarjeta-widget" style="min-height: 300px; display:flex; flex-direction:column; gap:20px;">
+                                <div>
+                                    <h3 style="color:var(--azul-oscuro); margin-bottom:15px;"><i class='bx bx-pie-chart-alt-2'></i> Distribución de Pólizas (Total: 20 Clientes)</h3>
+                                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                                        <div style="background:var(--gris-fondo); padding:15px; border-radius:var(--radius-sm); border:1px solid var(--gris-borde);">
+                                            <div style="font-weight:600; font-size:14px; color:var(--text-main);">Vehículos y SOAT</div>
+                                            <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                                                <span style="color:var(--primary); font-size:20px; font-weight:700;">4</span>
+                                                <span style="color:var(--gris-texto); font-size:12px;">20%</span>
+                                            </div>
+                                            <div style="width:100%; background:#e2e8f0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
+                                                <div style="width:20%; background:var(--primary); height:100%;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="background:var(--gris-fondo); padding:15px; border-radius:var(--radius-sm); border:1px solid var(--gris-borde);">
+                                            <div style="font-weight:600; font-size:14px; color:var(--text-main);">Salud y Gastos Médicos</div>
+                                            <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                                                <span style="color:var(--verde-teal); font-size:20px; font-weight:700;">4</span>
+                                                <span style="color:var(--gris-texto); font-size:12px;">20%</span>
+                                            </div>
+                                            <div style="width:100%; background:#e2e8f0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
+                                                <div style="width:20%; background:var(--verde-teal); height:100%;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="background:var(--gris-fondo); padding:15px; border-radius:var(--radius-sm); border:1px solid var(--gris-borde);">
+                                            <div style="font-weight:600; font-size:14px; color:var(--text-main);">Vida y Accidentes</div>
+                                            <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                                                <span style="color:var(--accent-light); font-size:20px; font-weight:700;">4</span>
+                                                <span style="color:var(--gris-texto); font-size:12px;">20%</span>
+                                            </div>
+                                            <div style="width:100%; background:#e2e8f0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
+                                                <div style="width:20%; background:var(--accent-light); height:100%;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="background:var(--gris-fondo); padding:15px; border-radius:var(--radius-sm); border:1px solid var(--gris-borde);">
+                                            <div style="font-weight:600; font-size:14px; color:var(--text-main);">Responsabilidad Civil y Daños</div>
+                                            <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                                                <span style="color:var(--accent-dark); font-size:20px; font-weight:700;">8</span>
+                                                <span style="color:var(--gris-texto); font-size:12px;">40%</span>
+                                            </div>
+                                            <div style="width:100%; background:#e2e8f0; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
+                                                <div style="width:40%; background:var(--accent-dark); height:100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display:flex; justify-content:flex-end;">
+                                    <button class="boton-nuevo-cliente" style="margin-top:10px;">
+                                        <i class='bx bxs-file-pdf'></i> Exportar PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VISTA 8: CONFIGURACION -->
+                    <section id="pantalla-configuracion" class="pantalla-spa">
+                        <div class="panel-contenido">
+                            <h1>Configuración del Perfil</h1>
+                            
+                            <div class="form-card" style="max-width: 600px;">
+                                <form onsubmit="event.preventDefault(); alert('Perfil actualizado');">
+                                    <div class="field" style="margin-bottom: 20px;">
+                                        <label>Nombre de Usuario</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" value="Juan Carlos">
+                                        </div>
+                                    </div>
+                                    <div class="field" style="margin-bottom: 20px;">
+                                        <label>Correo Electrónico</label>
+                                        <div class="input-wrapper">
+                                            <input type="email" value="juan.carlos@agencia.com">
+                                        </div>
+                                    </div>
+                                    <div class="field" style="margin-bottom: 20px;">
+                                        <label>Contraseña Actual</label>
+                                        <div class="input-wrapper">
+                                            <input type="password" placeholder="••••••••">
+                                        </div>
+                                    </div>
+                                    <button class="button button-primary">Guardar Cambios</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- MODAL EDITAR CLIENTE -->
+                    <div class="modal-overlay" id="modal-editar-cliente" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+                        <div class="form-card" style="background:#fff; width:90%; max-width:500px; border-radius:var(--radius-md); max-height:90vh; overflow-y:auto;">
+                            <div class="form-card-header" style="padding:20px; border-bottom:1px solid var(--gris-borde); display:flex; justify-content:space-between; align-items:center;">
+                                <h2 style="font-size:20px; color:var(--azul-oscuro);">Editar Cliente</h2>
+                                <button class="btn-cerrar-modal" id="btn-cerrar-editar" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:var(--gris-texto);"><i class='bx bx-x'></i></button>
+                            </div>
+                            <div style="padding:20px;">
+                                <form id="form-editar-cliente">
+                                    <div class="field" style="margin-bottom:15px;">
+                                        <label>Nombre del Cliente</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="edit-nombre" required>
+                                        </div>
+                                    </div>
+                                    <div class="field" style="margin-bottom:15px;">
+                                        <label>Correo Electrónico</label>
+                                        <div class="input-wrapper">
+                                            <input type="email" id="edit-correo" required>
+                                        </div>
+                                    </div>
+                                    <div class="field" style="margin-bottom:15px;">
+                                        <label>Seguro Asociado</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="edit-seguro" required>
+                                        </div>
+                                    </div>
+                                    <div class="field" style="margin-bottom:15px;">
+                                        <label>NIT o CC</label>
+                                        <div class="input-wrapper">
+                                            <input type="text" id="edit-nit" placeholder="Opcional">
+                                        </div>
+                                    </div>
+                                    <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;">
+                                        <button type="button" class="button" id="btn-cancelar-editar" style="background:transparent; border:1px solid var(--gris-borde); color:var(--text-main);">Cancelar</button>
+                                        <button type="submit" class="button button-primary">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts unificados -->
+    <script src="js/app.js"></script>
+</body>
+</html>

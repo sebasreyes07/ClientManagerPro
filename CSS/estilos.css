@@ -1,0 +1,249 @@
+/* IDENTIDAD VISUAL DE CLIENTMANAGER PRO Estas variables son la paleta base del proyecto.
+  NO SE CAMBIAN: son las que ya se venían trabajando.*/
+:root {
+  --azul-oscuro: #16324f;
+  --azul-marino: #1b3a57;
+  --verde-teal: #21a191;
+  --verde-teal-hover: #1c8c7e;
+  --blanco: #ffffff;
+  --gris-texto: #6b7280;
+  --gris-borde: #d1d5db;
+}
+
+/* Reseteo básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/*FONDO: degradado navy -> teal + formas difuminadas Esto reemplaza la "foto de paisaje" del ejemplo, pero usando SOLO los colores de nuestra marca.*/
+.fondo-login {
+  position: fixed;
+  inset: 0; /* ocupa toda la pantalla (top/right/bottom/left: 0) */
+  z-index: -1;
+  background: linear-gradient(160deg, var(--azul-oscuro) 0%, var(--azul-marino) 45%, var(--verde-teal) 100%);
+  overflow: hidden;
+}
+
+.forma-fondo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px); /* esto es lo que genera el efecto "desenfocado" de fondo */
+}
+
+.forma-fondo-1 {
+  width: 420px;
+  height: 420px;
+  background-color: var(--verde-teal);
+  opacity: 0.35;
+  top: -100px;
+  left: -100px;
+}
+
+.forma-fondo-2 {
+  width: 380px;
+  height: 380px;
+  background-color: var(--azul-marino);
+  opacity: 0.5;
+  bottom: -120px;
+  right: -80px;
+}
+
+.forma-fondo-3 {
+  width: 300px;
+  height: 300px;
+  background-color: var(--verde-teal-hover);
+  opacity: 0.25;
+  bottom: 20%;
+  left: 30%;
+}
+
+/* CONTENEDOR: centra la tarjeta en toda la pantalla */
+.contenedor-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* TARJETA DE VIDRIO (glassmorphism) La clave es: fondo blanco semitransparente + backdrop-filter */
+.tarjeta-login {
+  width: 100%;
+  max-width: 380px;
+  padding: 40px 32px;
+  border-radius: 24px;
+
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px); /* para que funcione también en Safari */
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  color: var(--blanco);
+}
+
+/*  Logo dentro de la tarjeta  */
+.logo-tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.logo-circulo {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background-color: var(--blanco);
+  color: var(--azul-marino);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.logo-texto {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.tarjeta-login h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.bienvenida {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ===== Campos del formulario ===== */
+.campo {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.etiqueta-oculta {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.campo input {
+  width: 100%;
+  padding: 14px 40px 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--blanco);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.campo input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.campo input:focus {
+  border-color: var(--verde-teal);
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.icono-derecha-fijo,
+.icono-derecha-boton {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+}
+
+.icono-derecha-boton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--blanco);
+}
+
+/* ===== Recordarme (checkbox) ===== */
+.recordarme {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.recordarme input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--verde-teal); /* así el check queda del color de marca */
+  cursor: pointer;
+}
+
+/* ===== Botón principal ===== */
+.boton-principal {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--verde-teal);
+  color: var(--blanco);
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.boton-principal:hover {
+  background-color: var(--verde-teal-hover);
+}
+
+.boton-principal:active {
+  transform: scale(0.98);
+}
+
+/* ===== Enlace "¿Olvidó su contraseña?" ===== */
+.enlace-secundario {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.enlace-secundario:hover {
+  text-decoration: underline;
+  color: var(--blanco);
+}
+
+/* RESPONSIVE: ajustes para pantallas de celular*/
+@media (max-width: 480px) {
+  .tarjeta-login {
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+  .tarjeta-login h2 {
+    font-size: 24px;
+  }
+}

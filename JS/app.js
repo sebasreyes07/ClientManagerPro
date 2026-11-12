@@ -9,6 +9,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const appShell = document.getElementById('app-shell');
     const pantallaLogin = document.getElementById('pantalla-login');
     const tituloSeccion = document.getElementById('titulo-seccion');
+    const btnTema = document.getElementById('btn-tema');
+    const root = document.documentElement;
+
+    // Tema visual: respeta la preferencia del sistema y conserva la selección del usuario.
+    const temaGuardado = localStorage.getItem('cmp-tema');
+    const temaInicial = temaGuardado || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    function aplicarTema(tema) {
+        const esOscuro = tema === 'dark';
+        root.dataset.theme = esOscuro ? 'dark' : 'light';
+        if (btnTema) {
+            btnTema.setAttribute('aria-label', esOscuro ? 'Activar modo claro' : 'Activar modo oscuro');
+            btnTema.setAttribute('title', esOscuro ? 'Activar modo claro' : 'Activar modo oscuro');
+            btnTema.innerHTML = `<i class='bx ${esOscuro ? 'bx-sun' : 'bx-moon'}' aria-hidden="true"></i>`;
+        }
+    }
+
+    aplicarTema(temaInicial);
+
+    if (btnTema) {
+        btnTema.addEventListener('click', () => {
+            const nuevoTema = root.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('cmp-tema', nuevoTema);
+            aplicarTema(nuevoTema);
+        });
+    }
 
     function navigateTo(pantallaId) {
         // Hide all screens

@@ -1117,3 +1117,351 @@ button, input, select {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* =========================================
+   11. TEMA OSCURO Y ADAPTABILIDAD V2
+========================================= */
+:root {
+  --surface-main: #ffffff;
+  --surface-soft: rgba(255, 255, 255, 0.72);
+  --surface-muted: #edf4f7;
+  --line-soft: rgba(22, 50, 79, 0.1);
+}
+
+[data-theme="dark"] {
+  --blanco: #f7fbfc;
+  --gris-fondo: #0e1c27;
+  --gris-texto: #9eb0bb;
+  --gris-borde: #2a414f;
+  --text-main: #e7f0f3;
+  --text-secondary: #a7b9c2;
+  --text-light: #81949f;
+  --background: #122734;
+  --surface-main: #172f3d;
+  --surface-soft: rgba(23, 47, 61, 0.88);
+  --surface-muted: #1b3543;
+  --line-soft: rgba(184, 219, 222, 0.14);
+  --glass: rgba(23, 47, 61, 0.78);
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+  --shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.34);
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(39, 182, 174, 0.11), transparent 25%),
+    radial-gradient(circle at 92% 18%, rgba(44, 120, 144, 0.13), transparent 30%),
+    var(--gris-fondo);
+}
+
+[data-theme="dark"] .panel-derecho {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(33, 161, 145, 0.12), transparent 32%),
+    var(--gris-fondo);
+}
+
+[data-theme="dark"] .barra-superior {
+  background: rgba(18, 39, 52, 0.82);
+  border-color: var(--gris-borde);
+}
+
+[data-theme="dark"] .tarjeta-widget,
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .policy-card,
+[data-theme="dark"] .reminder,
+[data-theme="dark"] .tarjeta-canal {
+  background: var(--surface-soft);
+  border-color: var(--line-soft);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .caja-login h2,
+[data-theme="dark"] .panel-contenido > h1,
+[data-theme="dark"] .tarjeta-widget h2,
+[data-theme="dark"] .nombre-cliente,
+[data-theme="dark"] .detalle-vencimiento h4,
+[data-theme="dark"] .nombre-usuario,
+[data-theme="dark"] #titulo-seccion {
+  color: var(--text-main) !important;
+}
+
+[data-theme="dark"] .tabla-recientes td,
+[data-theme="dark"] .tabla-recientes th,
+[data-theme="dark"] .campo-busqueda input,
+[data-theme="dark"] .chip-filtro,
+[data-theme="dark"] .input-wrapper,
+[data-theme="dark"] select,
+[data-theme="dark"] input {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .campo-busqueda input,
+[data-theme="dark"] .chip-filtro,
+[data-theme="dark"] .input-wrapper,
+[data-theme="dark"] .toast,
+[data-theme="dark"] .modal-window {
+  background: var(--surface-muted);
+  border-color: var(--line-soft);
+}
+
+[data-theme="dark"] .campo-busqueda input::placeholder,
+[data-theme="dark"] input::placeholder {
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .tabla-recientes th,
+[data-theme="dark"] .tabla-recientes td,
+[data-theme="dark"] .fila-cliente,
+[data-theme="dark"] .item-vencimiento {
+  border-color: var(--line-soft);
+}
+
+[data-theme="dark"] .info-kpi h3,
+[data-theme="dark"] .info-kpi p,
+[data-theme="dark"] .tabla-recientes td,
+[data-theme="dark"] .detalle-cliente {
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .info-kpi h3,
+[data-theme="dark"] .tabla-recientes th {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .icono-kpi.azul {
+  color: #8eb6d1;
+  background-color: rgba(142, 182, 209, 0.14);
+}
+
+.btn-tema {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  color: var(--azul-marino);
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+
+.btn-tema:hover {
+  color: var(--verde-teal);
+  transform: translateY(-2px) rotate(8deg);
+}
+
+[data-theme="dark"] .btn-tema {
+  color: var(--accent-light);
+  border-color: var(--gris-borde);
+}
+
+/* Touch targets, scroll y densidad equilibrada para tablets y móviles. */
+button,
+.link-nav,
+.link-logout,
+.boton-accion,
+.chip-filtro,
+.tab-categoria {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.contenido-principal,
+.area-trabajo,
+.nav-lateral {
+  scrollbar-width: thin;
+  scrollbar-color: var(--verde-teal) transparent;
+}
+
+@media (max-width: 1100px) {
+  .barra-lateral {
+    width: 248px;
+  }
+
+  .area-trabajo {
+    padding: 28px;
+  }
+
+  .dos-columnas {
+    grid-template-columns: minmax(0, 1.35fr) minmax(260px, 1fr);
+  }
+
+  .panel-contenido > h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .contenedor-dashboard {
+    min-height: 100dvh;
+  }
+
+  .barra-lateral {
+    width: min(86vw, 320px);
+    left: calc(-1 * min(86vw, 320px));
+    box-shadow: 20px 0 45px rgba(0, 0, 0, 0.2);
+  }
+
+  .barra-lateral.abierta {
+    left: 0;
+  }
+
+  .barra-superior {
+    min-height: 72px;
+    height: auto;
+  }
+
+  .contenido-principal {
+    width: 100%;
+  }
+
+  .perfil-usuario {
+    gap: 10px;
+  }
+
+  .overlay-menu.activo {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
+
+@media (max-width: 680px) {
+  .barra-superior {
+    padding: 12px 16px;
+  }
+
+  .area-trabajo {
+    padding: 22px 16px 32px;
+  }
+
+  .texto-usuario {
+    display: none !important;
+  }
+
+  .avatar-usuario {
+    width: 38px;
+    height: 38px;
+  }
+
+  .btn-notificacion,
+  .btn-tema {
+    width: 38px;
+    height: 38px;
+  }
+
+  .rejilla-kpis,
+  .dos-columnas,
+  .selector-canales {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta-widget {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .panel-contenido > h1 {
+    margin-bottom: 22px;
+    font-size: 27px;
+  }
+
+  .encabezado-clientes {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .barra-filtros {
+    flex-direction: column;
+  }
+
+  .campo-busqueda {
+    max-width: none;
+  }
+
+  .filtros-chips {
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .chip-filtro {
+    flex: 0 0 auto;
+    min-height: 42px;
+  }
+
+  .fila-cliente {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .info-cliente {
+    min-width: calc(100% - 60px);
+  }
+
+  .acciones-cliente {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .tabla-recientes {
+    min-width: 590px;
+  }
+
+  .tabla-recientes th,
+  .tabla-recientes td {
+    padding: 11px 12px;
+  }
+
+  .form-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .perfil-usuario {
+    gap: 6px;
+  }
+
+  .btn-notificacion {
+    display: none;
+  }
+
+  .panel-contenido > h1 {
+    font-size: 24px;
+  }
+
+  .tarjeta-kpi {
+    gap: 12px;
+  }
+
+  .icono-kpi {
+    width: 48px;
+    height: 48px;
+    font-size: 21px;
+  }
+
+  .info-kpi p {
+    font-size: 24px;
+  }
+
+  .beneficios-login {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1471,6 +1471,39 @@ button,
 }
 
 /* =========================================
+   15. TIPOGRAFÍA DE ALTO CONTRASTE EN OSCURO
+========================================= */
+[data-theme="dark"] {
+  --text-main: #f3fafb;
+  --text-secondary: #b7c9d1;
+  --text-light: #91a7b2;
+}
+
+[data-theme="dark"] .panel-contenido h1,
+[data-theme="dark"] .panel-contenido h2,
+[data-theme="dark"] .panel-contenido h3,
+[data-theme="dark"] .panel-contenido h4,
+[data-theme="dark"] .panel-contenido [style*="color:var(--azul-oscuro)"]:not(.boton-contacto),
+[data-theme="dark"] .panel-contenido [style*="color:var(--azul-marino)"]:not(.boton-contacto),
+[data-theme="dark"] .panel-contenido [style*="color:#374151"] {
+  color: var(--text-main) !important;
+}
+
+[data-theme="dark"] .panel-contenido p,
+[data-theme="dark"] .panel-contenido label,
+[data-theme="dark"] .panel-contenido td,
+[data-theme="dark"] .panel-contenido th {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .panel-contenido .info-kpi p,
+[data-theme="dark"] .panel-contenido .nombre-cliente,
+[data-theme="dark"] .panel-contenido .detalle-vencimiento h4 {
+  color: var(--text-main) !important;
+}
+
+
+/* =========================================
    14. CONTRASTE DE ICONOS DE CONTACTO
 ========================================= */
 .boton-contacto {

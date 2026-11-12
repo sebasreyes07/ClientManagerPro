@@ -48,13 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update nav active states
         navLinks.forEach(link => {
-            link.classList.remove('activo');
-            if (link.getAttribute('data-target') === pantallaId) {
-                link.classList.add('activo');
+            const isActive = link.getAttribute('data-target') === pantallaId;
+            link.classList.toggle('activo', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'page');
                 // Update title based on nav text
                 if (tituloSeccion) {
                     tituloSeccion.textContent = link.textContent.trim();
                 }
+            } else {
+                link.removeAttribute('aria-current');
             }
         });
 

@@ -59,11 +59,17 @@
             <!-- BARRA LATERAL (SIDEBAR) -->
             <aside class="barra-lateral" id="barra-lateral">
                 <div class="cabecera-lateral">
-                    <img src="assets/logo-cmp.png" alt="ClientManager Pro" class="logo-icono" style="background:transparent; object-fit:contain;">
+                    <div class="marca-lateral">
+                        <img src="assets/logo-cmp.png" alt="ClientManager Pro" class="logo-icono">
+                        <span class="texto-marca">
+                            <strong>ClientManager</strong>
+                            <small>PRO</small>
+                        </span>
+                    </div>
                 </div>
                 
                 <nav class="nav-lateral">
-                    <a href="#" class="link-nav nav-spa activo" data-target="pantalla-dashboard">
+                    <a href="#" class="link-nav nav-spa activo" data-target="pantalla-dashboard" aria-current="page">
                         <i class='bx bx-grid-alt'></i> Panel Principal
                     </a>
                     <a href="#" class="link-nav nav-spa" data-target="pantalla-clientes">
@@ -96,6 +102,30 @@
                 </div>
             </aside>
 
+            <!-- NAVEGACIÓN PRINCIPAL PARA MÓVIL Y TABLET -->
+            <nav class="barra-navegacion-inferior" aria-label="Navegación principal">
+                <a href="#" class="destino-navegacion nav-spa activo" data-target="pantalla-dashboard" aria-label="Inicio" aria-current="page">
+                    <i class='bx bx-home-alt-2' aria-hidden="true"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="#" class="destino-navegacion nav-spa" data-target="pantalla-clientes" aria-label="Clientes">
+                    <i class='bx bx-group' aria-hidden="true"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="#" class="destino-navegacion nav-spa" data-target="pantalla-polizas" aria-label="Pólizas">
+                    <i class='bx bx-file-blank' aria-hidden="true"></i>
+                    <span>Pólizas</span>
+                </a>
+                <a href="#" class="destino-navegacion nav-spa" data-target="pantalla-recordatorios" aria-label="Avisos">
+                    <i class='bx bx-bell' aria-hidden="true"></i>
+                    <span>Avisos</span>
+                </a>
+                <a href="#" class="destino-navegacion nav-spa" data-target="pantalla-reportes" aria-label="Reportes">
+                    <i class='bx bx-bar-chart-alt-2' aria-hidden="true"></i>
+                    <span>Reportes</span>
+                </a>
+            </nav>
+
             <!-- CONTENIDO PRINCIPAL -->
             <div class="contenido-principal">
                 <!-- BARRA SUPERIOR -->
@@ -103,6 +133,10 @@
                     <button class="boton-menu-movil" id="btn-menu-movil">
                         <i class='bx bx-menu'></i>
                     </button>
+                    <div class="marca-movil" aria-label="ClientManager Pro">
+                        <img src="assets/logo-cmp.png" alt="" class="logo-movil">
+                        <span>ClientManager <strong>PRO</strong></span>
+                    </div>
                     <!-- Titulo dinamico opcional -->
                     <h2 style="font-size: 18px; color: var(--azul-oscuro);" class="d-none" id="titulo-seccion">Panel Principal</h2>
                     

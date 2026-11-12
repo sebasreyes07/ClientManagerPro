@@ -51,21 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. LOGIN SIMULADO
+    // 2. ACCESO A LA APLICACIÓN
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
         formLogin.addEventListener('submit', (e) => {
             e.preventDefault();
-            const usuarioInput = document.getElementById('input-usuario').value;
-            const passwordInput = document.getElementById('input-password').value;
-            
-            if (usuarioInput === 'usuario' && passwordInput === '12345678') {
-                pantallaLogin.classList.remove('activa');
-                appShell.style.display = 'block';
-                navigateTo('pantalla-dashboard');
-            } else {
-                alert('Credenciales incorrectas. Usuario o contraseña inválidos.');
-            }
+            pantallaLogin.classList.remove('activa');
+            appShell.style.display = 'block';
+            navigateTo('pantalla-dashboard');
         });
     }
 

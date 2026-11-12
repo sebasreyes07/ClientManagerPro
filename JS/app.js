@@ -80,6 +80,55 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Navegación táctil entre módulos principales en teléfonos.
+    const areaTrabajo = document.querySelector('.area-trabajo');
+    const pantallasDeslizables = [
+        'pantalla-dashboard',
+        'pantalla-clientes',
+        'pantalla-polizas',
+        'pantalla-recordatorios',
+        'pantalla-reportes'
+    ];
+    let inicioDeslizamiento = null;
+
+    if (areaTrabajo) {
+        areaTrabajo.addEventListener('touchstart', (event) => {
+            const objetivo = event.target;
+            if (objetivo.closest('input, textarea, select, button, a, [contenteditable="true"], .tabla-recientes, .campo-busqueda')) {
+                inicioDeslizamiento = null;
+                return;
+            }
+
+            const toque = event.changedTouches[0];
+            inicioDeslizamiento = { x: toque.clientX, y: toque.clientY };
+        }, { passive: true });
+
+        areaTrabajo.addEventListener('touchend', (event) => {
+            if (!inicioDeslizamiento || window.matchMedia('(min-width: 601px)').matches) {
+                inicioDeslizamiento = null;
+                return;
+            }
+
+            const toque = event.changedTouches[0];
+            const deltaX = toque.clientX - inicioDeslizamiento.x;
+            const deltaY = toque.clientY - inicioDeslizamiento.y;
+            const desplazamientoHorizontal = Math.abs(deltaX);
+            const desplazamientoVertical = Math.abs(deltaY);
+            const pantallaActual = pantallasDeslizables.findIndex(id => document.getElementById(id)?.classList.contains('activa'));
+
+            inicioDeslizamiento = null;
+
+            if (pantallaActual < 0 || desplazamientoHorizontal < 56 || desplazamientoHorizontal < desplazamientoVertical * 1.25) {
+                return;
+            }
+
+            const siguientePantalla = deltaX < 0 ? pantallaActual + 1 : pantallaActual - 1;
+            if (siguientePantalla >= 0 && siguientePantalla < pantallasDeslizables.length) {
+                navigateTo(pantallasDeslizables[siguientePantalla]);
+            }
+        }, { passive: true });
+    }
+
     // 2. ACCESO A LA APLICACIÓN
     const formLogin = document.getElementById('form-login');
     if (formLogin) {

@@ -1709,3 +1709,151 @@ button,
     height: 30px;
   }
 }
+
+/* =========================================
+   13. RESPONSIVE V4: M2 + T3 + D3
+========================================= */
+@media (max-width: 600px) {
+  .rejilla-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .rejilla-kpis .tarjeta-widget {
+    min-width: 0;
+    padding: 16px 14px;
+  }
+
+  .rejilla-kpis .tarjeta-kpi {
+    align-items: flex-start;
+    gap: 9px;
+    flex-direction: column;
+  }
+
+  .rejilla-kpis .icono-kpi {
+    width: 40px;
+    height: 40px;
+    font-size: 19px;
+    border-radius: 12px;
+  }
+
+  .rejilla-kpis .info-kpi h3 {
+    min-height: 28px;
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  .rejilla-kpis .info-kpi p {
+    font-size: 23px;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .rejilla-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .rejilla-kpis .tarjeta-kpi {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .rejilla-kpis .info-kpi h3 {
+    min-height: 0;
+  }
+}
+
+/* Tablet: rail compacta con nombres disponibles vía accesibilidad y tooltip. */
+@media (min-width: 601px) and (max-width: 900px) {
+  .contenedor-dashboard {
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .barra-navegacion-inferior {
+    display: none;
+  }
+
+  .barra-lateral {
+    position: relative;
+    left: auto;
+    display: flex;
+    flex: 0 0 80px;
+    width: 80px;
+    height: calc(100vh - 28px);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .cabecera-lateral {
+    min-height: 84px;
+    justify-content: center;
+    padding: 18px 10px;
+  }
+
+  .marca-lateral .logo-icono {
+    width: 46px;
+    height: 46px;
+  }
+
+  .texto-marca {
+    display: none;
+  }
+
+  .nav-lateral {
+    align-items: center;
+    padding: 22px 10px;
+    gap: 6px;
+  }
+
+  .link-nav {
+    width: 56px;
+    justify-content: center;
+    padding: 14px 0;
+    gap: 0;
+    font-size: 0;
+  }
+
+  .link-nav i {
+    font-size: 23px;
+  }
+
+  .link-nav.activo::after {
+    right: 4px;
+  }
+
+  .pie-lateral {
+    padding: 18px 10px;
+  }
+
+  .link-logout {
+    justify-content: center;
+    font-size: 0;
+  }
+
+  .link-logout i {
+    font-size: 23px;
+  }
+
+  .contenido-principal {
+    min-width: 0;
+    border-radius: 20px;
+  }
+
+  .marca-movil {
+    display: none;
+  }
+
+  .area-trabajo {
+    padding-bottom: 32px;
+  }
+
+  .dos-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .rejilla-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

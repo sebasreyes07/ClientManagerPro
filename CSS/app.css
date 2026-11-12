@@ -1471,6 +1471,73 @@ button,
 }
 
 /* =========================================
+   14. CONTRASTE DE ICONOS DE CONTACTO
+========================================= */
+.boton-contacto {
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(22, 50, 79, 0.08);
+}
+
+.boton-contacto i {
+  font-size: 18px;
+}
+
+.boton-contacto.boton-whatsapp {
+  color: #128c4a !important;
+  background: rgba(37, 211, 102, 0.14) !important;
+  border-color: rgba(18, 140, 74, 0.18);
+}
+
+.boton-contacto.boton-correo {
+  color: #1e506c !important;
+  background: rgba(30, 80, 108, 0.13) !important;
+  border-color: rgba(30, 80, 108, 0.18);
+}
+
+[data-theme="dark"] .boton-accion {
+  color: #b7cbd4;
+}
+
+[data-theme="dark"] .boton-accion:hover {
+  color: var(--accent-light);
+  background: rgba(39, 182, 174, 0.16);
+}
+
+[data-theme="dark"] .boton-contacto.boton-whatsapp {
+  color: #6bed98 !important;
+  background: rgba(37, 211, 102, 0.18) !important;
+  border-color: rgba(107, 237, 152, 0.3);
+}
+
+[data-theme="dark"] .boton-contacto.boton-correo {
+  color: #a9ddf2 !important;
+  background: rgba(119, 190, 219, 0.18) !important;
+  border-color: rgba(169, 221, 242, 0.3);
+}
+
+[data-theme="dark"] .tarjeta-canal h3 .bx-envelope {
+  color: #a9ddf2;
+}
+
+[data-theme="dark"] .tarjeta-canal h3 .bxl-whatsapp {
+  color: #6bed98;
+}
+
+[data-theme="dark"] .reminder h4,
+[data-theme="dark"] .reminder [style*="color:var(--azul-oscuro)"],
+[data-theme="dark"] .reminder [style*="color:var(--azul-marino)"] {
+  color: var(--text-main) !important;
+}
+
+.tarjeta-canal h3 .bx-envelope {
+  color: #1e506c;
+}
+
+.tarjeta-canal h3 .bxl-whatsapp {
+  color: #128c4a;
+}
+
+/* =========================================
    12. NAVEGACIÓN V3 Y MARCA RESPONSIVE
 ========================================= */
 .barra-navegacion-inferior,

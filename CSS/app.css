@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Variables base (estilos.css) */
@@ -41,7 +41,9 @@
 }
 
 body {
-  font-family: 'Poppins', 'Inter', sans-serif;
+  font-family: 'Manrope', 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-synthesis: none;
   background: radial-gradient(circle at 10% 10%, rgba(39, 182, 174, 0.12), transparent 25%), 
               radial-gradient(circle at 90% 20%, rgba(30, 80, 108, 0.10), transparent 30%), 
               var(--gris-fondo);
@@ -939,6 +941,7 @@ button, input, select {
   max-width: 480px;
   margin-bottom: 14px;
   font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
   line-height: 1.08;
   letter-spacing: -1.6px;
 }
@@ -1050,6 +1053,7 @@ button, input, select {
 .panel-contenido > h1 {
   margin-bottom: 30px;
   font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
   letter-spacing: -0.7px;
 }
 
